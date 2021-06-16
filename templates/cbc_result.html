@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+{% load pwa %}
+{% progressive_web_app_meta %}
+<link rel="manifest" href="manifest.json">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="تحلیل آزمایش CBC">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#6272D2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#6272D2">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags-->
+    <!-- Title-->
+    <title>تحلیل آزمایش CBC</title>
+    <!-- Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap">
+    <!-- Favicon-->
+    <link rel="icon" href="/static/img/core-img/favicon.ico">
+    <link rel="apple-touch-icon" href="/static/img/icons/icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/img/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="/static/img/icons/icon-167x167.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/img/icons/icon-180x180.png">
+    <!-- CSS Libraries-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/farsi-font.css">
+    <link rel="stylesheet" href="/static/css/animate.css">
+    <link rel="stylesheet" href="/static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/bootstrap-icons.css">
+    <link rel="stylesheet" href="/static/css/magnific-popup.css">
+    <link rel="stylesheet" href="/static/css/ion.rangeSlider.min.css">
+    <link rel="stylesheet" href="/static/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/static/css/apexcharts.css">
+    <!-- Core Stylesheet-->
+    <link rel="stylesheet" href="/static/css/style.css">
+
+
+</head>
+<body>
+<!-- Preloader-->
+<div class="preloader d-flex align-items-center justify-content-center" id="preloader">
+    <div class="spinner-grow text-primary" role="status">
+        <div class="sr-only">Loading...</div>
+    </div>
+</div>
+<!-- Internet Connection Status-->
+<div class="internet-connection-status" id="internetStatus"></div>
+<!-- Back Button-->
+<div class="header-area" id="headerArea">
+    <div class="container">
+        <!-- Header Content-->
+        <div class="header-content position-relative d-flex align-items-center justify-content-between">
+            <!-- Back Button-->
+        </div>
+    </div>
+</div>
+<!-- Header Area-->
+<!-- Input Textarea -->
+{% for cbc in cbcs %}
+    <div class="page-content-wrapper py-3">
+        <div class="container">
+            <div class="card position-relative shadow-sm">
+                <div class="card-body direction-rtl">
+                    <h2>RBC</h2>
+                    <p>
+                        {% if cbc.age >= 65 and cbc.gender == 'مرد' and 3.8 <= cbc.RBC and 5.8 >= cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+                            طبق بررسی جواب آزمایش میزان RBC خون شما نرمال میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'زن' and 3.8 <= cbc.RBC and 5.2 >= cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+                            طبق بررسی جواب آزمایش میزان RBC خون شما نرمال میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'مرد' and 5.2 < cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما زیاد میباشد
+                        {% elif cbc.gender == 'زن' and 3.8 > cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما کم میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'زن' and 5.2 < cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما زیاد میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'مرد' and 4.2 <= cbc.RBC and 5.6 >= cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما نرمال میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'زن' and 3.8 <= cbc.RBC and 5.3 >= cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما نرمال میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'زن' and 5.3 < cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما زیاد میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'مرد' and 4.2 > cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما کم میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'مرد' and 5.6 < cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما زیاد میباشد
+
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'مرد' and 4.3 <= cbc.RBC and 5.7 >= cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما نرمال میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'زن' and 3.8 <= cbc.RBC and 5.1 >= cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما نرمال میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'زن' and 5.1 < cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما زیاد میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'مرد' and 4.3 > cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما کم میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'مرد' and 5.7 < cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما زیاد میباشد
+
+
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'مرد' and 4.1 <= cbc.RBC and 5.2 >= cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما نرمال میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'زن' and 3.8 <= cbc.RBC and 5.0 >= cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما نرمال میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'زن' and 5.0 < cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما زیاد میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'مرد' and 4.1 > cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما کم میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'مرد' and 5.2 < cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما زیاد میباشد
+
+
+                        {% elif 1 <= cbc.age and 11 >= cbc.age and 3.8 <= cbc.RBC and 4.8 >= cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما نرمال میباشد
+                        {% elif 1 <= cbc.age and 11 >= cbc.age and 4.8 < cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما زیاد میباشد
+                        {% elif 1 <= cbc.age and 11 >= cbc.age and 3.8 > cbc.RBC %}
+                            RBC   به معنای تعداد گلبولهای قرمز خون می باشد.
+
+                            طبق بررسی جواب آزمایش میزان RBC خون شما کم میباشد
+
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="element-heading mt-3"></div>
+        <div class="container">
+            <div class="card position-relative shadow-sm">
+                <div class="card-body direction-rtl">
+                    <h2>WBC</h2>
+                    <p>
+                        {% if cbc.age >= 21 and 4.5 <= cbc.WBC and 11 >= cbc.WBC %}
+                            WBC   به معنای تعداد گلبولهای سفید خون می باشد.
+                            طبق بررسی جواب آزمایش میزان WBC خون شما نرمال میباشد
+
+                        {% elif cbc.age >= 8 and 4.5 > cbc.WBC %}
+                            WBC   به معنای تعداد گلبولهای سفید خون می باشد.
+                            طبق بررسی جواب آزمایش میزان WBC خون شما کم میباشد
+
+                        {% elif cbc.age >= 21 and 11 < cbc.WBC %}
+                            WBC   به معنای تعداد گلبولهای سفید خون می باشد.
+                            طبق بررسی جواب آزمایش میزان WBC خون شما زیاد میباشد
+
+                        {% elif 16 <= cbc.age and 20 >= cbc.age and 13 < cbc.WBC %}
+                            WBC   به معنای تعداد گلبولهای سفید خون می باشد.
+                            طبق بررسی جواب آزمایش میزان WBC خون شما زیاد میباشد
+
+                        {% elif 8 <= cbc.age and 15 >= cbc.age and 13.5 < cbc.WBC %}
+                            WBC   به معنای تعداد گلبولهای سفید خون می باشد.
+                            طبق بررسی جواب آزمایش میزان WBC خون شما زیاد میباشد
+
+                        {% elif 6 <= cbc.age and 7 >= cbc.age and 14.5 < cbc.WBC %}
+                            WBC   به معنای تعداد گلبولهای سفید خون می باشد.
+                            طبق بررسی جواب آزمایش میزان WBC خون شما زیاد میباشد
+
+                        {% elif 6 <= cbc.age and 7 >= cbc.age and 5 > cbc.WBC %}
+                            WBC   به معنای تعداد گلبولهای سفید خون می باشد.
+                            طبق بررسی جواب آزمایش میزان WBC خون شما کم میباشد
+
+                        {% elif 4 <= cbc.age and 5 >= cbc.age and 15.5 < cbc.WBC %}
+                            WBC   به معنای تعداد گلبولهای سفید خون می باشد.
+                            طبق بررسی جواب آزمایش میزان WBC خون شما زیاد میباشد
+
+                        {% elif 4 <= cbc.age and 5 >= cbc.age and 5.5 > cbc.WBC %}
+                            WBC   به معنای تعداد گلبولهای سفید خون می باشد.
+                            طبق بررسی جواب آزمایش میزان WBC خون شما کم میباشد
+
+                        {% elif 1 <= cbc.age and 3 >= cbc.age and 17.5 < cbc.WBC %}
+                            WBC   به معنای تعداد گلبولهای سفید خون می باشد.
+                            طبق بررسی جواب آزمایش میزان WBC خون شما زیاد میباشد
+
+                        {% elif 1 <= cbc.age and 3 >= cbc.age and 6 > cbc.WBC %}
+                            WBC   به معنای تعداد گلبولهای سفید خون می باشد.
+                            طبق بررسی جواب آزمایش میزان WBC خون شما کم میباشد
+
+                        {% elif 16 <= cbc.age and 20 >= cbc.age and 4.5 <= cbc.WBC and 13 >= cbc.WBC %}
+                            WBC   به معنای تعداد گلبولهای سفید خون می باشد.
+                            طبق بررسی جواب آزمایش میزان WBC خون شما نرمال میباشد
+
+                        {% elif 8 <= cbc.age and 15 >= cbc.age and 4.5 <= cbc.WBC and 13.5 >= cbc.WBC %}
+                            WBC   به معنای تعداد گلبولهای سفید خون می باشد.
+                            طبق بررسی جواب آزمایش میزان WBC خون شما نرمال میباشد
+
+                        {% elif 6 <= cbc.age and 7 >= cbc.age and 5 <= cbc.WBC and 14 >= cbc.WBC %}
+                            WBC   به معنای تعداد گلبولهای سفید خون می باشد.
+                            طبق بررسی جواب آزمایش میزان WBC خون شما نرمال میباشد
+
+                        {% elif 4 <= cbc.age and 5 >= cbc.age and 5.5 <= cbc.WBC and 15.5 >= cbc.WBC %}
+                            WBC   به معنای تعداد گلبولهای سفید خون می باشد.
+                            طبق بررسی جواب آزمایش میزان WBC خون شما نرمال میباشد
+
+                        {% elif 1 <= cbc.age and 3 >= cbc.age and 6 <= cbc.WBC and 17.5 >= cbc.WBC %}
+                            WBC   به معنای تعداد گلبولهای سفید خون می باشد.
+                            طبق بررسی جواب آزمایش میزان WBC خون شما نرمال میباشد
+
+
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="element-heading mt-3"></div>
+        <div class="container">
+            <div class="card position-relative shadow-sm">
+                <div class="card-body direction-rtl">
+                    <h2>Hemoglobin</h2>
+                    <p>
+                        {% if cbc.age >= 65 and cbc.gender == 'مرد' and 12.6 <= cbc.Hemoglobin and 17.4 >= cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما نرمال میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'زن' and 11.7 <= cbc.Hemoglobin and 16 >= cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما نرمال میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'مرد' and 17.4 < cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما زیاد میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'زن' and 16.1 < cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما زیاد میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'مرد' and 12.6 > cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما کم میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'زن' and 11.7 > cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما کم میباشد
+
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'مرد' and 13.1 <= cbc.Hemoglobin and 17.2 >= cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما نرمال میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'زن' and 11.7 <= cbc.Hemoglobin and 16 >= cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما نرمال میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'زن' and 16 < cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما زیاد میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'مرد' and 17.2 < cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما زیاد میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'مرد' and 13.1 > cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما کم میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'زن' and 11.7 > cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما کم میباشد
+
+
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'مرد' and 13.2 <= cbc.Hemoglobin and 17.3 >= cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما نرمال میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'زن' and 11.7 <= cbc.Hemoglobin and 15.5 >= cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما نرمال میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'زن' and 15.5 < cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما زیاد میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'مرد' and 13.2 > cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما کم میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'مرد' and 17.3 < cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما زیاد میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'زن' and 11.7 > cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما کم میباشد
+
+
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'مرد' and 11.7 <= cbc.Hemoglobin and 16.6 >= cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما نرمال میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'زن' and 11.5 <= cbc.Hemoglobin and 15.3 >= cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما نرمال میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'زن' and 15.3 < cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما زیاد میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'مرد' and 11.7 > cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما کم میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'مرد' and 16.6 < cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما زیاد میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'زن' and 11.5 > cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما کم میباشد
+
+
+                        {% elif 9 <= cbc.age and 11 >= cbc.age and 12 <= cbc.Hemoglobin and 15 >= cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما نرمال میباشد
+                        {% elif 9 <= cbc.age and 11 >= cbc.age and 15 < cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما زیاد میباشد
+                        {% elif 9 <= cbc.age and 11 >= cbc.age and 12 > cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما کم میباشد
+
+
+                        {% elif 1 <= cbc.age and 8 >= cbc.age and 11.2 <= cbc.Hemoglobin and 14.1 >= cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما نرمال میباشد
+                        {% elif 1 <= cbc.age and 8 >= cbc.age and 14.1 < cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما زیاد میباشد
+                        {% elif 1 <= cbc.age and 8 >= cbc.age and 11.2 > cbc.Hemoglobin %}
+                            Hemoglobin یکی از عناصر اصلی تشکیل دهنده گلبول‌ قرمز است.
+
+                            طبق بررسی جواب آزمایش میزان Hemoglobin خون شما کم میباشد
+
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="element-heading mt-3"></div>
+        <div class="container">
+            <div class="card position-relative shadow-sm">
+                <div class="card-body direction-rtl">
+                    <h2>Hematocrit</h2>
+                    <p>
+                        {% if cbc.age >= 65 and cbc.gender == 'مرد' and 37 <= cbc.Hematocrit and 51 >= cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما نرمال میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'زن' and 35 <= cbc.Hematocrit and 47 >= cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما نرمال میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'مرد' and 51 < cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما زیاد میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'زن' and 47 < cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما زیاد میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'مرد' and 37 > cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما کم میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'زن' and 35 > cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما کم میباشد
+
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'مرد' and 39 <= cbc.Hematocrit and 50 >= cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما نرمال میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'زن' and 35 <= cbc.Hematocrit and 47 >= cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما نرمال میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'زن' and 47 < cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما زیاد میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'مرد' and 50 < cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما زیاد میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'مرد' and 39 > cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما کم میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'زن' and 35 > cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما کم میباشد
+
+
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'مرد' and 39 <= cbc.Hematocrit and 49 >= cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما نرمال میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'زن' and 35 <= cbc.Hematocrit and 45 >= cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما نرمال میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'زن' and 45 < cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما زیاد میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'مرد' and 49 < cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما زیاد میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'مرد' and 39 > cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما کم میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'زن' and 35 > cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما کم میباشد
+
+
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'مرد' and 35 <= cbc.Hematocrit and 45 >= cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما نرمال میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'زن' and 34 <= cbc.Hematocrit and 44 >= cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما نرمال میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'زن' and 44 < cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما زیاد میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'مرد' and 45 < cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما زیاد میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'مرد' and 34 > cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما کم میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'زن' and 35 > cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما کم میباشد
+
+
+                        {% elif 9 <= cbc.age and 11 >= cbc.age and 34 <= cbc.Hematocrit and 43 >= cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما نرمال میباشد
+                        {% elif 9 <= cbc.age and 11 >= cbc.age and 43 < cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما زیاد میباشد
+                        {% elif 9 <= cbc.age and 11 >= cbc.age and 34 > cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما کم میباشد
+
+
+                        {% elif 1 <= cbc.age and 8 >= cbc.age and 31 <= cbc.Hematocrit and 41 >= cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما نرمال میباشد
+                        {% elif 1 <= cbc.age and 8 >= cbc.age and 41 < cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما زیاد میباشد
+                        {% elif 1 <= cbc.age and 8 >= cbc.age and 31 > cbc.Hematocrit %}
+                            طبق بررسی جواب آزمایش میزان Hematocrit خون شما کم میباشد
+
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="element-heading mt-3"></div>
+        <div class="container">
+            <div class="card position-relative shadow-sm">
+                <div class="card-body direction-rtl">
+                    <h2>MCV</h2>
+                    <p>
+
+                        {% if 45 <= cbc.age and 80 <= cbc.MCV and 100 >= cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما نرمال میباشد
+                        {% elif 45 <= cbc.age and 100 < cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما زیاد میباشد
+                        {% elif 45 <= cbc.age and 80 > cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما کم میباشد
+
+
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'مرد' and 80 <= cbc.MCV and 99 >= cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما نرمال میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'زن' and 81 <= cbc.MCV and 100 >= cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما نرمال میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'زن' and 100 < cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما زیاد میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'مرد' and 99 < cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما زیاد میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'مرد' and 80 > cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما کم میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'زن' and 81 > cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما کم میباشد
+
+
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'مرد' and 77 <= cbc.MCV and 95 >= cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما نرمال میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'زن' and 73 <= cbc.MCV and 98 >= cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما نرمال میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'زن' and 98 < cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما زیاد میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'مرد' and 95 < cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما زیاد میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'مرد' and 77 > cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما کم میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'زن' and 73 > cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما کم میباشد
+
+
+                        {% elif 9 <= cbc.age and 11 >= cbc.age and 75 <= cbc.MCV and 87 >= cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما نرمال میباشد
+                        {% elif 9 <= cbc.age and 11 >= cbc.age and 87 < cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما زیاد میباشد
+                        {% elif 9 <= cbc.age and 11 >= cbc.age and 75 > cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما کم میباشد
+
+
+                        {% elif 1 <= cbc.age and 8 >= cbc.age and 68 <= cbc.MCV and 85 >= cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما نرمال میباشد
+                        {% elif 1 <= cbc.age and 8 >= cbc.age and 85 < cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما زیاد میباشد
+                        {% elif 1 <= cbc.age and 8 >= cbc.age and 68 > cbc.MCV %}
+                            MCV به میانگین حجم گلبولهای سرخ خون اشاره دارد.
+                            طبق بررسی جواب آزمایش میزان MCV خون شما کم میباشد
+
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="element-heading mt-3"></div>
+        <div class="container">
+            <div class="card position-relative shadow-sm">
+                <div class="card-body direction-rtl">
+                    <h2>MPV</h2>
+                    <p>
+                        {% if cbc.gender == 'مرد' and 9.4 <= cbc.MPV and 12.3 >= cbc.MPV %}
+                            MPV به معنی حجم متوسط پلاکت ها است.
+                            طبق جواب آزمایش میزان MPV نرمال است.
+                        {% elif cbc.gender == 'زن' and 9.4 <= cbc.MPV and 12.4 >= cbc.MPV %}
+                            MPV به معنی حجم متوسط پلاکت ها است.
+                            طبق جواب آزمایش میزان MPV نرمال است.
+                        {% elif cbc.gender == 'مرد' and 12.3 < cbc.MPV %}
+                            MPV به معنی حجم متوسط پلاکت ها است.
+                            طبق جواب آزمایش بالا بودن به این معنی است که پلاکت بزرگ است و خطر حملات قلبی افزایش پیدا می
+                            کند.
+                        {% elif cbc.gender == 'زن' and 12.4 < cbc.MPV %}
+                            MPV به معنی حجم متوسط پلاکت ها است.
+                            طبق جواب آزمایش بالا بودن به این معنی است که پلاکت بزرگ است و خطر حملات قلبی افزایش پیدا می
+                            کند.
+                        {% elif 9.4 > cbc.MPV %}
+                            MPV به معنی حجم متوسط پلاکت ها است.
+                            طبق جواب آزمایش پایین بودن به این معنی است که پلاکت کوچک است و در این شرایط مستعد خونریزی
+                            خواهید بود.
+
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="element-heading mt-3"></div>
+        <div class="container">
+            <div class="card position-relative shadow-sm">
+                <div class="card-body direction-rtl">
+                    <h2>MCH</h2>
+                    <p>
+                        {% if cbc.age >= 65 and cbc.gender == 'مرد' and 27 <= cbc.MCH and 34 >= cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما نرمال میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'زن' and 27 <= cbc.MCH and 35 >= cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما نرمال میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'مرد' and 34 < cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما زیاد میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'زن' and 35 < cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما زیاد میباشد
+                        {% elif cbc.age >= 65 and 27 > cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما کم میباشد
+
+
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'مرد' and 27 <= cbc.MCH and 35 >= cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما نرمال میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'زن' and 27 <= cbc.MCH and 34 >= cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما نرمال میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'زن' and 34 < cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما زیاد میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'مرد' and 35 < cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما زیاد میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and 27 > cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما کم میباشد
+
+
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and 27 <= cbc.MCH and 34 >= cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما نرمال میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and 34 < cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما زیاد میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and 27 > cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما کم میباشد
+
+
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'مرد' and 26 <= cbc.MCH and 32 >= cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما نرمال میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'زن' and 26 <= cbc.MCH and 34 >= cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما نرمال میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'زن' and 34 < cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما زیاد میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'مرد' and 32 < cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما زیاد میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and 26 > cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما کم میباشد
+
+
+                        {% elif 9 <= cbc.age and 11 >= cbc.age and 26 <= cbc.MCH and 32 >= cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما نرمال میباشد
+                        {% elif 9 <= cbc.age and 11 >= cbc.age and 32 < cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما زیاد میباشد
+                        {% elif 9 <= cbc.age and 11 >= cbc.age and 26 > cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما کم میباشد
+
+
+                        {% elif 1 <= cbc.age and 8 >= cbc.age and 24 <= cbc.MCH and 30 >= cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما نرمال میباشد
+                        {% elif 1 <= cbc.age and 8 >= cbc.age and 30 < cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما زیاد میباشد
+                        {% elif 1 <= cbc.age and 8 >= cbc.age and 24 > cbc.MCH %}
+                            طبق بررسی جواب آزمایش میزان MCH خون شما کم میباشد
+
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="element-heading mt-3"></div>
+        <div class="container">
+            <div class="card position-relative shadow-sm">
+                <div class="card-body direction-rtl">
+                    <h2>MCHC</h2>
+                    <p>
+                        {% if cbc.age >= 65 and cbc.gender == 'مرد' and 31 <= cbc.MCHC and 36 >= cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما نرمال میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'زن' and 32 <= cbc.MCHC and 36 >= cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما نرمال میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'مرد' and 36 < cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما زیاد میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'زن' and 36 < cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما زیاد میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'مرد' and 31 > cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما کم میباشد
+                        {% elif cbc.age >= 65 and cbc.gender == 'زن' and 32 > cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما کم میباشد
+
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'مرد' and 32 <= cbc.MCHC and 36 >= cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما نرمال میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'زن' and 31 <= cbc.MCHC and 36 >= cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما نرمال میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'زن' and 36 < cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما زیاد میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'مرد' and 36 < cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما زیاد میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'مرد' and 32 > cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما کم میباشد
+                        {% elif 45 <= cbc.age and 64 >= cbc.age and cbc.gender == 'زن' and 31 > cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما کم میباشد
+
+
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'مرد' and 32 <= cbc.MCHC and 37 >= cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما نرمال میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'زن' and 32 <= cbc.MCHC and 36 >= cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما نرمال میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'زن' and 36 < cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما زیاد میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'مرد' and 37 < cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما زیاد میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'مرد' and 32 > cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما کم میباشد
+                        {% elif 18 <= cbc.age and 44 >= cbc.age and cbc.gender == 'زن' and 32 > cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما کم میباشد
+
+
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'مرد' and 32 <= cbc.MCHC and 37 >= cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما نرمال میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'زن' and 32 <= cbc.MCHC and 36 >= cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما نرمال میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'زن' and 36 < cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما زیاد میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'مرد' and 37 < cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما زیاد میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'مرد' and 32 > cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما کم میباشد
+                        {% elif 12 <= cbc.age and 17 >= cbc.age and cbc.gender == 'زن' and 32 > cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما کم میباشد
+
+
+                        {% elif 1 <= cbc.age and 11 >= cbc.age and 32 <= cbc.MCHC and 37 >= cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما نرمال میباشد
+                        {% elif 1 <= cbc.age and 11 >= cbc.age and 37 < cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما زیاد میباشد
+                        {% elif 1 <= cbc.age and 11 >= cbc.age and 32 > cbc.MCHC %}
+                            طبق بررسی جواب آزمایش میزان MCHC خون شما کم میباشد
+
+
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="element-heading mt-3"></div>
+        <div class="container">
+            <div class="card position-relative shadow-sm">
+                <div class="card-body direction-rtl">
+                    <h2>RDWCV</h2>
+                    <p>
+                        {% if 11.6 <= cbc.RDWCV and 14.6 >= cbc.RDWCV %}
+                            RDWCV نشاندهنده میزان یکنواختی و یا عدم یکنواختی اندازه گلبولهای سرخ خون است.
+                            طبق بررسی جواب آزمایش میزان RDWCV شما نرمال میباشد.
+                        {% elif 14.6 < cbc.RDWCV %}
+                            RDWCV نشاندهنده میزان یکنواختی و یا عدم یکنواختی اندازه گلبولهای سرخ خون است.
+                            طبق بررسی جواب آزمایش میزان RDWCV شما نرمال میباشد.
+                        {% elif 11.6 > cbc.RDWCV %}
+                            RDWCV نشاندهنده میزان یکنواختی و یا عدم یکنواختی اندازه گلبولهای سرخ خون است.
+                            طبق بررسی جواب آزمایش میزان RDWCV شما نرمال میباشد.
+
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="element-heading mt-3"></div>
+        <div class="container">
+            <div class="card position-relative shadow-sm">
+                <div class="card-body direction-rtl">
+                    <h2>Platelets</h2>
+                    <p>
+                        {% if 150 <= cbc.Platelets and 440 >= cbc.Platelets %}
+                            Platelets نشان دهنده پلاکت های بدن است.
+                            طبق بررسی جواب آزمایش میزان Platelets شما نرمال میباشد.
+
+                        {% elif 440 < cbc.Platelets %}
+                            Platelets نشان دهنده پلاکت های بدن است.
+                            طبق بررسی جواب آزمایش میزان Platelets شما زیاد میباشد.
+
+                        {% elif 150 > cbc.Platelets %}
+                            Platelets نشان دهنده پلاکت های بدن است.
+                            طبق بررسی جواب آزمایش میزان Platelets شما کم میباشد.
+
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            <div class="element-heading mt-3"></div>
+            {#            <a class="btn btn-primary w-100" href="/CBC/" style="background-color: #4e5ba8; ">تست مجدد</a>#}
+            <a class="btn btn-lg w-100 text-white" id="letsgo-btn" style="background-color: #4e5ba8" href="/CBC/">
+                <span class="spinner-border spinner-border-sm" id="letsgo-spinner" role="status" style="display:none;">
+                    <span class="sr-only">Loading...</span>
+                </span>
+                <span id="letsgo-text">تست مجدد</span>
+            </a>
+
+        </div>
+    </div>
+{% endfor %}
+<!-- All JavaScript Files-->
+<script>
+
+    let btn = document.querySelector("#letsgo-btn");
+    let btnText = btn.querySelector("#letsgo-text");
+    let btnSpinner = btn.querySelector("#letsgo-spinner");
+    btn.addEventListener("click", function () {
+        btnText.style.display = "none";
+        btnSpinner.style.display = "inline-block";
+    })
+</script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/default/internet-status.js"></script>
+<!-- Password Strenght-->
+<script src="/static/js/default/active.js"></script>
+<!-- PWA-->
+{#<script src="/static/js/pwa.js"></script>#}
+</body>
+
+<!-- Mirrored from designing-world.com/affan-1.1.0/page-register.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 May 2021 07:37:43 GMT -->
+</html>

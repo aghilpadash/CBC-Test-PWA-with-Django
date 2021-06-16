@@ -1,0 +1,298 @@
+{% load crispy_forms_filters %}
+<!DOCTYPE html>
+<html lang="fa">
+{#{% load pwa %}#}
+{#{% progressive_web_app_meta %}#}
+{#<link rel="manifest" href="manifest.json">#}
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="description" content="تحلیل آزمایش CBC">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#6272D2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags-->
+    <!-- Title-->
+    <title>تحلیل آزمایش CBC</title>
+    <!-- Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap">
+    <!-- Favicon-->
+    <link rel="icon" href="/static/img/core-img/favicon.ico">
+    <link rel="apple-touch-icon" href="/static/img/icons/icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/img/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="/static/img/icons/icon-167x167.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/img/icons/icon-180x180.png">
+    <!-- CSS Libraries-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/animate.css">
+    <link rel="stylesheet" href="/static/css/farsi-font.css">
+    <link rel="stylesheet" href="/static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/bootstrap-icons.css">
+    {#    <link rel="stylesheet" href="/static/css/magnific-popup.css">#}
+    {#    <link rel="stylesheet" href="/static/css/ion.rangeSlider.min.css">#}
+    {#    <link rel="stylesheet" href="/static/css/dataTables.bootstrap4.min.css">#}
+    {#    <link rel="stylesheet" href="/static/css/apexcharts.css">#}
+    <!-- Core Stylesheet-->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- Web App Manifest-->
+    {#    <link rel="serviceworker" href="/static/js/serviceworker.js">#}
+
+
+</head>
+<body>
+<!-- Preloader-->
+<div class="preloader d-flex align-items-center justify-content-center owl-lazy" id="preloader">
+    <div class="spinner-grow text-primary" role="status">
+        <div class="sr-only">Loading...</div>
+    </div>
+</div>
+<!-- Internet Connection Status-->
+<div class="internet-connection-status" id="internetStatus"></div>
+<!-- Back Button-->
+<div class="header-area" id="headerArea">
+    <div class="container">
+        <!-- Header Content-->
+        <div class="header-content position-relative d-flex align-items-center justify-content-between">
+            <!-- Back Button-->
+            <div>
+                <a href="/">
+                    <svg width="32" height="32" viewBox="0 0 16 16" class="bi bi-arrow-left-short" fill="currentColor"
+                         style="color:#6272D2"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header Area-->
+{% load crispy_forms_tags %}
+<div class="page-content-wrapper py-3">
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <form action="/CBC/submit/" method="POST">
+                    {% csrf_token %}
+
+                    <div class="row">
+
+                        <div class="form-group col-6 text-right maxlength=3">
+                            {{ form.age|as_crispy_field }}
+                        </div>
+
+                        <div class="form-group col-6 text-right ">
+                            {{ form.gender|as_crispy_field }}
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="form-group col-6 text-right">
+                            {{ form.height|as_crispy_field }}
+                        </div>
+
+                        <div class="form-group col-6 text-right">
+                            {{ form.weight|as_crispy_field }}
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="form-group col-6">
+                            {{ form.WBC|as_crispy_field }}
+                        </div>
+
+                        <div class="form-group col-6">
+                            {{ form.RBC|as_crispy_field }}
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="form-group col-6">
+                            {{ form.Hemoglobin|as_crispy_field }}
+                        </div>
+
+                        <div class="form-group col-6">
+                            {{ form.Hematocrit|as_crispy_field }}
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="form-group col-6">
+                            {{ form.MCV|as_crispy_field }}
+                        </div>
+
+                        <div class="form-group col-6">
+                            {{ form.MPV|as_crispy_field }}
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="form-group col-6">
+                            {{ form.MCH|as_crispy_field }}
+                        </div>
+
+                        <div class="form-group col-6">
+                            {{ form.MCHC|as_crispy_field }}
+                        </div>
+
+                        <div class="form-group col-6">
+                            {{ form.RDWCV|as_crispy_field }}
+                        </div>
+
+                        <div class="form-group col-6">
+                            {{ form.Platelets|as_crispy_field }}
+                        </div>
+
+                    </div>
+
+                    {#                    <div class="row">#}
+                    {#                        <div class="form-group col-6">#}
+                    {#                            <label class="form-label" for="age">سن</label>#}
+                    {#                            <input class="form-control text-center" style="border-color: #adadad" name="age" id="age"#}
+                    {#                                   type="number" placeholder="سال">#}
+                    {#                        </div>#}
+                    {##}
+                    {#                        <div class="form-group col-6 ">#}
+                    {#                            <label class="form-label justify-content-center text-center"#}
+                    {#                                   for="defaultSelect">جنسیت</label>#}
+                    {#                            <select class="form-select d-flex justify-content-center " style="border-color: #adadad"#}
+                    {#                                    id="gender" name="gender"#}
+                    {#                                    aria-label="gender">#}
+                    {#                                <option value="1">مرد</option>#}
+                    {#                                <option value="2">زن</option>#}
+                    {#                            </select>#}
+                    {#                        </div>#}
+                    {##}
+                    {#                        <div class="form-group col-6">#}
+                    {#                            <label class="form-label" for="height">قد</label>#}
+                    {#                            <input class="form-control text-center" style="border-color: #adadad" name="height"#}
+                    {#                                   id="height" type="number" placeholder="سانتی متر">#}
+                    {#                        </div>#}
+                    {##}
+                    {#                        <div class="form-group col-6">#}
+                    {#                            <label class="form-label" for="weight">وزن</label>#}
+                    {#                            <input class="form-control text-center" style="border-color: #adadad" name="weight"#}
+                    {#                                   id="weight" type="number" placeholder="کیلوگرم">#}
+                    {#                        </div>#}
+                    {##}
+                    {#                        <div class="form-group col-6">#}
+                    {#                            <label class="form-label" for="WBC">WBC</label>#}
+                    {#                            <input class="form-control text-center" style="border-color: #adadad" name="WBC"#}
+                    {#                                   id="WBC" type="number" placeholder="گلبول های سفید">#}
+                    {#                        </div>#}
+                    {##}
+                    {#                        <div class="form-group col-6">#}
+                    {#                            <label class="form-label" for="RBC">RBC</label>#}
+                    {#                            <input class="form-control text-center" style="border-color: #adadad" name="RBC"#}
+                    {#                                   id="RBC" type="number" placeholder="گلبول های قرمز">#}
+                    {#                        </div>#}
+                    {##}
+                    {#                        <div class="form-group col-6">#}
+                    {#                            <label class="form-label" for="Hemoglobin">Hemoglobin</label>#}
+                    {#                            <input class="form-control text-center" style="border-color: #adadad" name="Hemoglobin"#}
+                    {#                                   id="Hemoglobin" type="number" placeholder="هموگلوبین">#}
+                    {#                        </div>#}
+                    {##}
+                    {#                        <div class="form-group col-6">#}
+                    {#                            <label class="form-label" for="Hematocrit">Hematocrit</label>#}
+                    {#                            <input class="form-control text-center" style="border-color: #adadad" name="Hematocrit"#}
+                    {#                                   id="Hematocrit" type="number" placeholder="درصد گلبول های قرمز در خون">#}
+                    {#                        </div>#}
+                    {##}
+                    {#                        <div class="form-group col-6">#}
+                    {#                            <label class="form-label" for="MCV">MCV</label>#}
+                    {#                            <input class="form-control text-center" style="border-color: #adadad" name="MCV"#}
+                    {#                                   id="MCV" type="number" placeholder="حجم متوسط هموگلوبین">#}
+                    {#                        </div>#}
+                    {##}
+                    {#                        <div class="form-group col-6">#}
+                    {#                            <label class="form-label" for="MPV">MPV</label>#}
+                    {#                            <input class="form-control text-center" style="border-color: #adadad" name="MPV"#}
+                    {#                                   id="MPV" type="number" placeholder="حجم متوسط پلاکت ها">#}
+                    {#                        </div>#}
+                    {##}
+                    {#                        <div class="form-group col-6">#}
+                    {#                            <label class="form-label" for="MCH">MCH</label>#}
+                    {#                            <input class="form-control text-center" style="border-color: #adadad" name="MCH"#}
+                    {#                                   id="MCH" type="number" placeholder="وزن متوسط هموگلوبین">#}
+                    {#                        </div>#}
+                    {##}
+                    {#                        <div class="form-group col-6">#}
+                    {#                            <label class="form-label" for="MCHC">MCHC</label>#}
+                    {#                            <input class="form-control text-center" style="border-color: #adadad" name="MCHC"#}
+                    {#                                   id="MCHC" type="number" placeholder="غلظت متوسط همو گلوبین">#}
+                    {#                        </div>#}
+                    {##}
+                    {#                        <div class="form-group col-6">#}
+                    {#                            <label class="form-label" for="RDWCV">RDWCV</label>#}
+                    {#                            <input class="form-control text-center" style="border-color: #adadad" name="RDWCV"#}
+                    {#                                   id="RDWCV" type="number" placeholder="پهنای گلبول قرمز">#}
+                    {#                        </div>#}
+                    {##}
+                    {#                        <div class="form-group col-6">#}
+                    {#                            <label class="form-label" for="Platelets">Platelets</label>#}
+                    {#                            <input class="form-control text-center" style="border-color: #adadad" name="Platelets"#}
+                    {#                                   id="Platelets" type="number" placeholder="پلاکت ها">#}
+                    {#                        </div>#}
+                    {##}
+                    {#                    </div>#}
+                    {#                    <button class="btn w-100 text-white" style="background-color: #4e5ba8; "#}
+                    {#                            type="submit">تفسیر آزمایش#}
+                    {#                    </button>#}
+
+                    <button class="btn btn-lg w-100 text-white" id="letsgo-btn" style="background-color: #4e5ba8">
+                        <span class="spinner-border spinner-border-sm" id="letsgo-spinner" role="status"
+                              style="display:none;">
+                            <span class="sr-only">Loading...</span>
+                        </span>
+                        <span id="letsgo-text">تفسیر آزمایش</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- All JavaScript Files-->
+<script>
+
+    let btn = document.querySelector("#letsgo-btn");
+    let btnText = btn.querySelector("#letsgo-text");
+    let btnSpinner = btn.querySelector("#letsgo-spinner");
+    btn.addEventListener("click", function () {
+        btnText.style.display = "none";
+        btnSpinner.style.display = "inline-block";
+    })
+</script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/default/internet-status.js"></script>
+{#<script src="/static/js/waypoints.min.js"></script>#}
+{#<script src="/static/js/jquery.easing.min.js"></script>#}
+<script src="/static/js/wow.min.js"></script>
+{#<script src="/static/js/owl.carousel.min.js"></script>#}
+{#<script src="/static/js/default/dark-mode-switch.js"></script>#}
+{#<!-- Password Strenght-->#}
+{#<script src="/static/js/default/jquery.passwordstrength.js"></script>#}
+<script src="/static/js/default/active.js"></script>
+<!-- PWA-->
+{#<script src="/static/js/pwa.js"></script>#}
+</body>
+</html>

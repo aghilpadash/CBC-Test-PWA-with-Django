@@ -1,0 +1,12 @@
+anytree==2.8.0
+asgiref==3.3.4
+Django==3.2
+django-admin-csvexport==1.9
+django-crispy-forms==1.11.2
+django-jalali-date==0.3.1
+django-pwa==1.0.10
+djangorestframework==3.12.4
+jdatetime==3.6.2
+pytz==2021.1
+six==1.16.0
+sqlparse==0.4.1
